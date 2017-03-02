@@ -55,12 +55,21 @@ provider:
 #    - exclude-me-dir/**
 
 functions:
-  publishPawelNiewiadomskiCom:
-    handler: handler.publishPawelNiewiadomskiCom
+  triggerBuild:
+    handler: handler.triggerBuild
     events:
       - schedule: cron(23 23 * * * *)
     environment:
-      apiKey: ${opt:wercker-api-key}
+      apiKey: ${file(secrets.yml):wercker}
+      applicationId: ${file(secrets.yml):applicationId}
+      username: ${file(secrets.yml):username}
+
+  fetchApplications:
+    handler: handler.fetchApplications
+    environment:
+      apiKey: ${file(secrets.yml):wercker}
+      applicationId: ${file(secrets.yml):applicationId}
+      username: ${file(secrets.yml):username}
 
 #    The following are a few example events you can configure
 #    NOTE: Please make sure to change your handler code to work with those events
