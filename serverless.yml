@@ -58,7 +58,7 @@ functions:
   triggerBuild:
     handler: handler.triggerBuild
     events:
-      - schedule: cron(23 23 * * * *)
+      - schedule: cron(23 23 * * ? *)
     environment:
       apiKey: ${file(secrets.yml):wercker}
       applicationId: ${file(secrets.yml):applicationId}
