@@ -16,6 +16,7 @@ module.exports.triggerBuild = (event, context, callback) => {
       'Authorization': 'Bearer ' + process.env.apiKey
     }
   }, (error, response, body) => {
+    console.log('Response was HTTP/' + response.statusCode);
     callback(null, body);
   });
 
@@ -24,7 +25,8 @@ module.exports.triggerBuild = (event, context, callback) => {
 };
 
 module.exports.fetchApplications = (event, context, callback) => {
-const request = require('request');
+  const request = require('request');
+
   const req = request.get({
     url: 'https://app.wercker.com/api/v3/applications/' + process.env.username,
     json: true,
@@ -41,4 +43,4 @@ const request = require('request');
     });
     callback(null, apps);
   });
-}
+};
